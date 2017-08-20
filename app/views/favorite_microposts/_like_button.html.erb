@@ -1,0 +1,18 @@
+<% if current_user.favorite?(micropost) %>
+  <ul class="list-inline">
+    <li><span class="label label-danger"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></span></li>
+    <li><%= form_for(current_user.favorite_microposts.find_by(micropost_id: micropost.id), html: { method: :delete }) do |f| %>
+    <%= hidden_field_tag :micropost_id, micropost.id%>
+    <%= f.submit 'remove', class: 'btn btn-default btn-xs' %></li>
+  </ul>
+  <% end %>
+<% else %>
+  <ul class="list-inline">
+    <li><span class="label label-default"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span></span></li>
+    <li><%= form_for(current_user.favorite_microposts.build) do |f| %>
+    <%= hidden_field_tag :micropost_id, micropost.id %>
+    <%= f.submit 'Like !', class: 'btn btn-default btn-xs' %>
+  <% end %></li>
+  </ul>
+<% end %>
+
